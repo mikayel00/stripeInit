@@ -1,6 +1,7 @@
 import { InjectStripeClient } from '@golevelup/nestjs-stripe';
 import { Injectable } from '@nestjs/common';
 import Stripe from 'stripe';
+import { CreateSubscriptionSessionDto } from './dto/create-subscription-session.dto';
 
 @Injectable()
 export class SubscriptionService {
@@ -8,7 +9,7 @@ export class SubscriptionService {
 
   async createSubscriptionSession(
     user: any,
-    priceId: string,
+    createSubscriptionSessionDto: CreateSubscriptionSessionDto,
   ): Promise<Stripe.Response<Stripe.Checkout.Session> | undefined> {
     try {
       return this.stripe.checkout.sessions.create({
@@ -16,7 +17,7 @@ export class SubscriptionService {
         customer: user.customerId,
         line_items: [
           {
-            price: priceId,
+            price: createSubscriptionSessionDto.priceId,
             quantity: 1,
           },
         ],

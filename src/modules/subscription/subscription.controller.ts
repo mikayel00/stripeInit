@@ -2,6 +2,7 @@ import { Body, Controller, Post, Req } from '@nestjs/common';
 
 import { SubscriptionService } from './subscription.service';
 import Stripe from 'stripe';
+import { CreateSubscriptionSessionDto } from './dto/create-subscription-session.dto';
 
 @Controller('subscriptions')
 export class SubscriptionController {
@@ -10,11 +11,11 @@ export class SubscriptionController {
   @Post()
   createSubscriptionSession(
     @Req() request,
-    @Body() priceId: string,
+    @Body() createSubscriptionSessionDto: CreateSubscriptionSessionDto,
   ): Promise<Stripe.Response<Stripe.Checkout.Session> | undefined> {
     return this.subscriptionService.createSubscriptionSession(
       request.user,
-      priceId,
+      createSubscriptionSessionDto,
     );
   }
 

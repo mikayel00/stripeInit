@@ -3,6 +3,7 @@ import { SubscriptionController } from './subscription.controller';
 import { SubscriptionService } from './subscription.service';
 import { StripeModule } from '@golevelup/nestjs-stripe';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { SubscriptionWebhookService } from './subscription-webhook.service';
 
 @Module({
   imports: [
@@ -14,6 +15,6 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     }),
   ],
   controllers: [SubscriptionController],
-  providers: [SubscriptionService],
+  providers: [SubscriptionService, SubscriptionWebhookService],
 })
 export class SubscriptionModule {}
